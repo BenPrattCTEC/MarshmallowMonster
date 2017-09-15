@@ -36,7 +36,7 @@ public class Monster {
 		
 	}
 	
-	public void Initialize(String name, int eyeCount, int armCount, int tenticleAmount, boolean hasBloop) {
+	public void initialize(String name, int eyeCount, int armCount, double tenticleAmount, boolean hasBloop) {
 		
 		this.armCount = armCount;
 		this.eyeCount = eyeCount;
