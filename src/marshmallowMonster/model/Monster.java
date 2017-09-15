@@ -7,6 +7,8 @@ public class Monster {
 	private String name;
 	private boolean hasBloop;
 	
+	private static int numberOfMonsters=0;
+	
 	public Monster(String name, int eyeCount, int armCount, int tenticleAmount, boolean hasBloop) {
 		
 		this.armCount = armCount;
@@ -14,7 +16,12 @@ public class Monster {
 		this.tenticleAmount = tenticleAmount;
 		this.name = name;
 		this.hasBloop = hasBloop;
+		numberOfMonsters++;
 		
+	}
+	
+	static public int getNumberOfMonsters() {
+		return numberOfMonsters;
 	}
 	
 	public int getArmCount() {
