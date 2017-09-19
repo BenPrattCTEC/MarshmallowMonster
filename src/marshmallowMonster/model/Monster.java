@@ -3,7 +3,7 @@ package marshmallowMonster.model;
 public class Monster {
 	
 	private int eyeCount, armCount;
-	private double tenticleAmount;
+	private double tentacleAmount;
 	private String name;
 	private boolean hasBloop;
 	
@@ -22,11 +22,11 @@ public class Monster {
 		IDAccumulator++;
 	}
 	
-	public Monster(String name, int eyeCount, int armCount, int tenticleAmount, boolean hasBloop) {
+	public Monster(String name, int eyeCount, int armCount, int tentacleAmount, boolean hasBloop) {
 		
 		this.armCount = armCount;
 		this.eyeCount = eyeCount;
-		this.tenticleAmount = tenticleAmount;
+		this.tentacleAmount = tentacleAmount;
 		this.name = name;
 		this.hasBloop = hasBloop;
 		monsterID = IDAccumulator;
@@ -36,11 +36,11 @@ public class Monster {
 		
 	}
 	
-	public void initialize(String name, int eyeCount, int armCount, double tenticleAmount, boolean hasBloop) {
+	public void initialize(String name, int eyeCount, int armCount, double tentacleAmount, boolean hasBloop) {
 		
 		this.armCount = armCount;
 		this.eyeCount = eyeCount;
-		this.tenticleAmount = tenticleAmount;
+		this.tentacleAmount = tentacleAmount;
 		this.name = name;
 		this.hasBloop = hasBloop;
 		isInitialized = true;
@@ -55,15 +55,15 @@ public class Monster {
 		this.eyeCount = count;
 	}
 	
-	public void setTenticleAmount(int amount) {
-		this.tenticleAmount = amount;
+	public void setTentacleAmount(double amount) {
+		this.tentacleAmount = amount;
 	}
 	
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public void sethasBloop(boolean hasBloop) {
+	public void setHasBloop(boolean hasBloop) {
 		this.hasBloop = hasBloop;
 	}
 	
@@ -75,8 +75,8 @@ public class Monster {
 		return eyeCount;
 	}
 	
-	public double getTenticleAmount() {
-		return tenticleAmount;
+	public double getTentacleAmount() {
+		return tentacleAmount;
 	}
 	
 	public String getName() {
@@ -104,11 +104,10 @@ public class Monster {
 		if (isInitialized) {
 			if (!isEaten)
 				return "ID: " + monsterID + "\n" + "Name: " + name + "\n" + "Number of eyes: " + eyeCount + "\n"
-						+ "Number of tenticles: " + tenticleAmount + "\n" + "Number of Arms: " + armCount + "\n"
+						+ "Number of tentacles: " + tentacleAmount + "\n" + "Number of Arms: " + armCount + "\n"
 						+ "Bloop state: " + hasBloop + "\n";
-			else {
+			else
 				return "ID: " + monsterID + "\n" + name + " Has been Eaten" + "\n";
-			}
 			
 		}
 		return "ID: " + monsterID + "\n" + "Monster not properly initialized" + "\n";
