@@ -9,6 +9,8 @@ public class Controller {
 	
 	public void start() {
 		
+		GuiController.displayQuestion("Hello");
+		
 		// Monster(name, eyeCount, armCount, tentacleAmount, hasBloop)
 		Monster[] monsters = { new Monster("Philip", 2, 2, 2, true), new Monster("Bob", 1, 3, 0, true), new Monster() };
 		
