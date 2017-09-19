@@ -12,24 +12,33 @@ public class Controller {
 		// Monster(name, eyeCount, armCount, tentacleAmount, hasBloop)
 		Monster[] monsters = { new Monster("Philip", 2, 2, 2, true), new Monster("Bob", 1, 3, 0, true), new Monster() };
 		
-		interactiveMonsterCreation(monsters[2]);
+//		interactiveMonsterCreation(monsters[2]);
 		
 		monsters[0].eat();
 		
-		for (int i = 0; i < monsters.length; i++) {
-			System.out.println(monsters[i].toString());
-		}
+		printMonsterArray(monsters);
+		
 		System.out.println();
 		System.out.println("Number of  Living Monsters: " + Monster.getNumberOfMonsters());
 		
 	}
 	
+	private void printMonsterArray(Monster[] monsters){
+		for (int i = 0; i < monsters.length; i++) {
+			System.out.println(monsters[i].toString());
+		}
+	}
+	
 	private void eatPart(Monster monster, String part, double amount) {
-		//valid parts: arm, eye, tentacle, bloop
+		// valid parts: arm, eye, tentacle, bloop
 		
-		if (amount <= 0) {
+		if (amount < 0) {
 			System.out.println("Error: amount is less than 0");
-		} else {
+		}
+		else if (amount == 0) {
+			System.out.println("Error: amount is 0");
+		}
+		else {
 			switch (part.toLowerCase()) {
 				case "arm":
 					monster.setArmCount(monster.getArmCount() - (int) amount);
@@ -59,16 +68,16 @@ public class Controller {
 					if (monster.gethasBloop()) {
 						monster.setHasBloop(false);
 						System.out.println("The monster now no longer has a bloop");
-					} else {
-						System.out.println("The monster Doesnt have a bloop to eat");
-						break;
 					}
+					else {
+						System.out.println("The monster Doesn't have a bloop to eat");
+					}
+					break;
 			}
 		}
-		
 	}
 	
-	private void interactiveMonsterCreation(Monster currentMonster) {
+	private void interactiveMonsterCreation(Monster monster) {
 		Scanner inp = new Scanner(System.in);
 		
 		int eyeCount = 0, armCount = 0;
@@ -81,7 +90,7 @@ public class Controller {
 		while (!isComplete) {
 			
 			try {
-				System.out.println("Modifying Monster with ID: " + currentMonster.getID());
+				System.out.println("Modifying Monster with ID: " + monster.getID());
 				
 				System.out.print("Enter Name: ");
 				name = inp.nextLine();
@@ -103,14 +112,15 @@ public class Controller {
 				inp.nextLine();
 				
 				isComplete = true;
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				System.out.println("\nField not entered correctly, Try again\n");
 				inp.nextLine();
 			}
 			
 		}
 		
-		currentMonster.initialize(name, eyeCount, armCount, tenticleAmount, hasBloop);
+		monster.initialize(name, eyeCount, armCount, tenticleAmount, hasBloop);
 		
 		System.out.println("\n");
 		
