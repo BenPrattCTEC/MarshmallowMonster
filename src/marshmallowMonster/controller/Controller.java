@@ -12,30 +12,34 @@ public class Controller {
 	
 	public void start() {
 		
+		// initialized monsters
 		// Monster(name, eyeCount, armCount, tentacleAmount, hasBloop)
 		Monster[] monsters = { new Monster("Philip", 2, 2, 2, true), new Monster("Bob", 1, 3, 0, true), new Monster() };
 		
+		// eats the first monster
 		monsters[0].eat();
 		
+		// create monster #3 from blank declared earlier
 		interactiveMonsterCreation(monsters[2]);
 		
-		// boolean correctInput = false;
-		// String tempString;
-		// while (!correctInput) {
-		// tempString = gui.displayQuestion(monsters[1].toString() + "\nHow many eyes
-		// would you like to eat?");
-		// if (isValidInt(tempString)) {
-		// eatPart(monsters[1], "eye", Math.abs(Integer.parseInt(tempString)));
-		// correctInput = true;
-		// }
-		// else if (tempString == null) {
-		// correctInput = true;
-		// }
-		// else {
-		// gui.displayText("Entered value was not an positive integer, try again");
-		// }
-		// }
+		// eats eyes of monster #2
+		boolean correctInput = false;
+		String tempString;
+		while (!correctInput) {
+			tempString = gui.displayQuestion(monsters[1].toString() + "\nHow many eyes would you like to eat?");
+			if (isValidInt(tempString)) {
+				eatPartNoFeedback(monsters[1], "eye", Math.abs(Integer.parseInt(tempString)));
+				correctInput = true;
+			}
+			else if (tempString == null) {
+				correctInput = true;
+			}
+			else {
+				gui.displayText("Entered value was not an positive integer, try again");
+			}
+		}
 		
+		// prints all monsters
 		printMonsterArrayToPopup(monsters);
 	}
 	
@@ -54,6 +58,7 @@ public class Controller {
 	}
 	
 	private void eatPart(Monster monster, String part, double amount) {
+		
 		// valid parts: arm, eye, tentacle, bloop
 		
 		if (amount < 0) {
@@ -98,6 +103,36 @@ public class Controller {
 					}
 					break;
 			}
+		}
+	}
+	
+	private void eatPartNoFeedback(Monster monster, String part, double amount) {
+		// valid parts: arm, eye, tentacle, bloop
+		
+		switch (part.toLowerCase()) {
+			case "arm":
+				monster.setArmCount(monster.getArmCount() - (int) amount);
+				if (monster.getArmCount() < 0) {
+					monster.setArmCount(0);
+				}
+				break;
+			case "eye":
+				monster.setEyeCount(monster.getEyeCount() - (int) amount);
+				if (monster.getEyeCount() < 0) {
+					monster.setEyeCount(0);
+				}
+				break;
+			case "tentacle":
+				monster.setTentacleAmount(monster.getTentacleAmount() - amount);
+				if (monster.getTentacleAmount() < 0) {
+					monster.setTentacleAmount(0);
+				}
+				break;
+			case "bloop":
+				if (monster.gethasBloop()) {
+					monster.setHasBloop(false);
+				}
+				break;
 		}
 	}
 	
