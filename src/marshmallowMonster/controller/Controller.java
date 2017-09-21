@@ -1,34 +1,56 @@
 package marshmallowMonster.controller;
 
 import java.util.Scanner;
+import java.lang.NumberFormatException;
 
 import marshmallowMonster.view.GuiController;
 import marshmallowMonster.model.Monster;
 
 public class Controller {
 	
+	GuiController gui = new GuiController();
+	
 	public void start() {
-		
-		GuiController.displayQuestion("Hello");
 		
 		// Monster(name, eyeCount, armCount, tentacleAmount, hasBloop)
 		Monster[] monsters = { new Monster("Philip", 2, 2, 2, true), new Monster("Bob", 1, 3, 0, true), new Monster() };
 		
-//		interactiveMonsterCreation(monsters[2]);
-		
 		monsters[0].eat();
 		
-		printMonsterArray(monsters);
+		interactiveMonsterCreation(monsters[2]);
 		
-		System.out.println();
-		System.out.println("Number of  Living Monsters: " + Monster.getNumberOfMonsters());
+		// boolean correctInput = false;
+		// String tempString;
+		// while (!correctInput) {
+		// tempString = gui.displayQuestion(monsters[1].toString() + "\nHow many eyes
+		// would you like to eat?");
+		// if (isValidInt(tempString)) {
+		// eatPart(monsters[1], "eye", Math.abs(Integer.parseInt(tempString)));
+		// correctInput = true;
+		// }
+		// else if (tempString == null) {
+		// correctInput = true;
+		// }
+		// else {
+		// gui.displayText("Entered value was not an positive integer, try again");
+		// }
+		// }
 		
+		printMonsterArrayToPopup(monsters);
 	}
 	
-	private void printMonsterArray(Monster[] monsters){
+	private void printMonsterArrayToConsole(Monster[] monsters) {
 		for (int i = 0; i < monsters.length; i++) {
 			System.out.println(monsters[i].toString());
 		}
+	}
+	
+	private void printMonsterArrayToPopup(Monster[] monsters) {
+		String tempString = "";
+		for (int i = 0; i < monsters.length; i++) {
+			tempString += monsters[i].toString() + "\n";
+		}
+		gui.displayText(tempString);
 	}
 	
 	private void eatPart(Monster monster, String part, double amount) {
@@ -80,7 +102,6 @@ public class Controller {
 	}
 	
 	private void interactiveMonsterCreation(Monster monster) {
-		Scanner inp = new Scanner(System.in);
 		
 		int eyeCount = 0, armCount = 0;
 		double tenticleAmount = 0;
@@ -92,40 +113,59 @@ public class Controller {
 		while (!isComplete) {
 			
 			try {
-				System.out.println("Modifying Monster with ID: " + monster.getID());
-				
-				System.out.print("Enter Name: ");
-				name = inp.nextLine();
-				
-				System.out.print("Number of Eyes: ");
-				eyeCount = inp.nextInt();
-				inp.nextLine();
-				
-				System.out.print("Number of Tenticles: ");
-				tenticleAmount = inp.nextDouble();
-				inp.nextLine();
-				
-				System.out.print("Number of Arms: ");
-				armCount = inp.nextInt();
-				inp.nextLine();
-				
-				System.out.print("Does it have a Bloop? (true or false): ");
-				hasBloop = inp.nextBoolean();
-				inp.nextLine();
+				name = gui.displayQuestion("ID: " + monster.getID() + "\nEnter Name");
+				eyeCount = Integer
+						.parseInt(gui.displayQuestion("ID: " + monster.getID() + "\n(Integer) Enter number of eyes"));
+				tenticleAmount = Double.parseDouble(
+						gui.displayQuestion("ID: " + monster.getID() + "\n(Double) Enter number of Tenticles"));
+				armCount = Integer
+						.parseInt(gui.displayQuestion("ID: " + monster.getID() + "\n(Integer) Enter number of Arms"));
+				hasBloop = Boolean.parseBoolean(
+						gui.displayQuestion("ID: " + monster.getID() + "\n(Boolean) Does it hava a Bloop?"));
 				
 				isComplete = true;
 			}
 			catch (Exception e) {
-				System.out.println("\nField not entered correctly, Try again\n");
-				inp.nextLine();
+				gui.displayText("\nField not entered correctly, Make sure it was the correct data type\n");
 			}
 			
 		}
 		
 		monster.initialize(name, eyeCount, armCount, tenticleAmount, hasBloop);
-		
-		System.out.println("\n");
-		
-		inp.close();
 	}
+	
+	// helpers-----------------------------------------------------------------------------------------------
+	
+	private boolean isValidInt(String sample) {
+		try {
+			Integer.parseInt(sample);
+		}
+		catch (NumberFormatException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean isValidDouble(String sample) {
+		try {
+			Double.parseDouble(sample);
+		}
+		catch (NumberFormatException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean isValidBoolean(String sample) {
+		switch (sample.toLowerCase()) {
+			case "true":
+				return true;
+			case "false":
+				return true;
+		}
+		return false;
+	}
+	
 }
