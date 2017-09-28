@@ -13,7 +13,7 @@ public class Controller {
 	
 	public void start() {
 		
-		List<Monster> monsters = new ArrayList<Monster>();
+		ArrayList<Monster> monsters = new ArrayList<Monster>();
 		
 		monsters.add(new Monster("Philip", 2, 2, 2, true));
 		monsters.add(new Monster("Bob", 1, 3, 0, true));
@@ -23,39 +23,37 @@ public class Controller {
 		monsters.get(0).eat();
 		
 		// create monster #3 from blank declared earlier
-		interactiveMonsterCreation(monsters.get(2));
+//		interactiveMonsterCreation(monsters.get(2));
+		
 		
 		// eats eyes of monster #2
-		boolean correctInput = false;
-		String tempString;
-		while (!correctInput) {
-			tempString = gui.displayQuestion(monsters.get(1).toString() + "\nHow many eyes would you like to eat?");
-			if (isValidInt(tempString)) {
-				eatPartNoFeedback(monsters.get(1), "eye", Math.abs(Integer.parseInt(tempString)));
-				correctInput = true;
-			}
-			else if (tempString == null) {
-				correctInput = true;
-			}
-			else {
-				gui.displayText("Entered value was not an positive integer, try again");
-			}
-		}
+//		boolean correctInput = false;
+//		String tempString;
+//		while (!correctInput) {
+//			tempString = gui.displayQuestion(monsters.get(1).toString() + "\nHow many eyes would you like to eat?");
+//			if (isValidInt(tempString)) {
+//				eatPartNoFeedback(monsters.get(1), "eye", Math.abs(Integer.parseInt(tempString)));
+//				correctInput = true;
+//			}
+//			else if (tempString == null) {
+//				correctInput = true;
+//			}
+//			else {
+//				gui.displayText("Entered value was not an positive integer, try again");
+//			}
+//		}
 		
 		// prints all monsters
-		printMonsterArrayToPopup(monsters);
+		printMonsterArrayListToPopup(monsters);
 	}
 	
-	private void printMonsterArrayToConsole(List<Monster> monsters) {
-		for (int i = 0; i < monsters.size(); i++) {
-			System.out.println(monsters.get(i).toString());
-		}
-	}
-	
-	private void printMonsterArrayToPopup(List<Monster> monsters) {
+	private void printMonsterArrayListToPopup(List<Monster> monsters) {
 		String tempString = "";
-		for (int i = 0; i < monsters.size(); i++) {
-			tempString += monsters.get(i).toString() + "\n";
+//		for (int i = 0; i < monsters.size(); i++) {
+//			tempString += monsters.get(i).toString() + "\n";
+//		}
+		for(Monster current : monsters){
+			tempString+=current.toString() + "\n";
 		}
 		gui.displayText(tempString);
 	}
