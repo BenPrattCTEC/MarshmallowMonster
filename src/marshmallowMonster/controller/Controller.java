@@ -1,6 +1,7 @@
 package marshmallowMonster.controller;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 import java.lang.NumberFormatException;
 
 import marshmallowMonster.view.GuiController;
@@ -12,23 +13,25 @@ public class Controller {
 	
 	public void start() {
 		
-		// initialized monsters
-		// Monster(name, eyeCount, armCount, tentacleAmount, hasBloop)
-		Monster[] monsters = { new Monster("Philip", 2, 2, 2, true), new Monster("Bob", 1, 3, 0, true), new Monster() };
+		List<Monster> monsters = new ArrayList<Monster>();
+		
+		monsters.add(new Monster("Philip", 2, 2, 2, true));
+		monsters.add(new Monster("Bob", 1, 3, 0, true));
+		monsters.add(new Monster());
 		
 		// eats the first monster
-		monsters[0].eat();
+		monsters.get(0).eat();
 		
 		// create monster #3 from blank declared earlier
-		interactiveMonsterCreation(monsters[2]);
+		interactiveMonsterCreation(monsters.get(2));
 		
 		// eats eyes of monster #2
 		boolean correctInput = false;
 		String tempString;
 		while (!correctInput) {
-			tempString = gui.displayQuestion(monsters[1].toString() + "\nHow many eyes would you like to eat?");
+			tempString = gui.displayQuestion(monsters.get(1).toString() + "\nHow many eyes would you like to eat?");
 			if (isValidInt(tempString)) {
-				eatPartNoFeedback(monsters[1], "eye", Math.abs(Integer.parseInt(tempString)));
+				eatPartNoFeedback(monsters.get(1), "eye", Math.abs(Integer.parseInt(tempString)));
 				correctInput = true;
 			}
 			else if (tempString == null) {
@@ -43,16 +46,16 @@ public class Controller {
 		printMonsterArrayToPopup(monsters);
 	}
 	
-	private void printMonsterArrayToConsole(Monster[] monsters) {
-		for (int i = 0; i < monsters.length; i++) {
-			System.out.println(monsters[i].toString());
+	private void printMonsterArrayToConsole(List<Monster> monsters) {
+		for (int i = 0; i < monsters.size(); i++) {
+			System.out.println(monsters.get(i).toString());
 		}
 	}
 	
-	private void printMonsterArrayToPopup(Monster[] monsters) {
+	private void printMonsterArrayToPopup(List<Monster> monsters) {
 		String tempString = "";
-		for (int i = 0; i < monsters.length; i++) {
-			tempString += monsters[i].toString() + "\n";
+		for (int i = 0; i < monsters.size(); i++) {
+			tempString += monsters.get(i).toString() + "\n";
 		}
 		gui.displayText(tempString);
 	}
